@@ -1,0 +1,154 @@
+.map-route-planner {
+    margin-bottom: 3rem;
+  }
+  
+  .map-route-planner h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--text-primary);
+  }
+  
+  .map-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    height: 500px;
+  }
+  
+  .map {
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .map-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .route-form {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  .form-group input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--background-color);
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .radio-option input[type="radio"] {
+    margin: 0;
+  }
+  
+  .calculate-route-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+  }
+  
+  .calculate-route-btn:hover:not(:disabled) {
+    background: #4338ca;
+  }
+  
+  .calculate-route-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .error-message {
+    color: #e53e3e;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .route-info {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .route-info h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+  
+  .route-info p {
+    margin-bottom: 0.25rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+  
+  .layer-controls {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .layer-controls h4 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .checkbox-option input[type="checkbox"] {
+    margin: 0;
+  }
+  
+  @media (max-width: 968px) {
+    .map-container {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+    
+    .map {
+      height: 400px;
+    }
+  }

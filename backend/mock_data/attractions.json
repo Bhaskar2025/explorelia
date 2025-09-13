@@ -1,0 +1,68 @@
+[
+    {
+      "id": 1,
+      "name": "Hawa Mahal",
+      "type": "attraction",
+      "description": "The iconic 'Palace of Winds' with a unique five-story exterior",
+      "rating": 4.5,
+      "price_range": "$$",
+      "image": "/images/hawa-mahal.jpg",
+      "coordinates": [26.9239, 75.8267],
+      "tags": ["historical", "architecture", "photography"]
+    },
+    {
+      "id": 2,
+      "name": "Amber Fort",
+      "type": "attraction",
+      "description": "Massive fort palace with a series of gates and cobbled paths",
+      "rating": 4.7,
+      "price_range": "$$$",
+      "image": "/images/amber-fort.jpg",
+      "coordinates": [26.9855, 75.8513],
+      "tags": ["historical", "fort", "views"]
+    },
+    {
+      "id": 3,
+      "name": "City Palace",
+      "type": "attraction",
+      "description": "A magnificent complex of palaces, gardens, and courtyards",
+      "rating": 4.6,
+      "price_range": "$$",
+      "image": "/images/city-palace.jpg",
+      "coordinates": [26.9258, 75.8237],
+      "tags": ["historical", "museum", "architecture"]
+    },
+    {
+      "id": 4,
+      "name": "Jantar Mantar",
+      "type": "attraction",
+      "description": "Astronomical observation site with ancient instruments",
+      "rating": 4.4,
+      "price_range": "$",
+      "image": "/images/jantar-mantar.jpg",
+      "coordinates": [26.9247, 75.8246],
+      "tags": ["historical", "science", "unique"]
+    },
+    {
+      "id": 5,
+      "name": "Nahargarh Fort",
+      "type": "attraction",
+      "description": "Hilltop fort offering panoramic views of Jaipur",
+      "rating": 4.3,
+      "price_range": "$$",
+      "image": "/images/nahargarh-fort.jpg",
+      "coordinates": [26.9372, 75.8152],
+      "tags": ["fort", "views", "sunset"]
+    },
+    {
+      "id": 6,
+      "name": "Jaigarh Fort",
+      "type": "attraction",
+      "description": "Fort known for housing the world's largest cannon on wheels",
+      "rating": 4.2,
+      "price_range": "$$",
+      "image": "/images/jaigarh-fort.jpg",
+      "coordinates": [26.9855, 75.8513],
+      "tags": ["fort", "historical", "cannon"]
+    }
+  ]

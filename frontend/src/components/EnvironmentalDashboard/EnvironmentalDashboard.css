@@ -1,0 +1,179 @@
+.environmental-dashboard {
+    margin-bottom: 3rem;
+  }
+  
+  .environmental-dashboard h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--text-primary);
+  }
+  
+  .dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .aqi-gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .gauge-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1rem;
+  }
+  
+  .gauge-fill {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+    transform: rotate(-90deg);
+  }
+  
+  .gauge-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: var(--background-color);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .aqi-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+  
+  .aqi-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  
+  .aqi-description {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .weather-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .temperature {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .weather-details {
+    text-align: center;
+    color: var(--text-secondary);
+  }
+  
+  .heatmap-section {
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .heatmap-section h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  
+  .heatmap-image {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .aqi-trend {
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  
+  .aqi-trend h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  
+  .trend-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+  }
+  
+  .trend-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .trend-bar {
+    width: 12px;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.3s ease;
+  }
+  
+  .trend-label {
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  
+  /* Skeleton loading */
+  .skeleton-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--border-color);
+    margin: 0 auto 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .trend-chart {
+      overflow-x: auto;
+    }
+    
+    .trend-bar-container {
+      min-width: 30px;
+    }
+  }

@@ -1,0 +1,54 @@
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .theme-toggle:hover {
+    background-color: var(--surface-color);
+  }
+  
+  .toggle-track {
+    width: 48px;
+    height: 24px;
+    border-radius: 12px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+  
+  .toggle-track.light {
+    background-color: #e2e8f0;
+  }
+  
+  .toggle-track.dark {
+    background-color: var(--primary-color);
+  }
+  
+  .toggle-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .toggle-track.light .toggle-thumb {
+    transform: translateX(2px);
+  }
+  
+  .toggle-track.dark .toggle-thumb {
+    transform: translateX(26px);
+  }
+  
+  .toggle-thumb svg {
+    color: var(--text-primary);
+  }

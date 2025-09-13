@@ -1,0 +1,11 @@
+{
+    "current_milestone": "Eco Explorer Level 1",
+    "description": "Visit 5 attractions using eco-friendly routes",
+    "progress": 60,
+    "next_milestone": "Eco Explorer Level 2",
+    "badges": [
+      {"name": "First Journey", "earned": true},
+      {"name": "Low Carbon Footprint", "earned": true},
+      {"name": "Local Supporter", "earned": false}
+    ]
+  }
