@@ -15,6 +15,7 @@ const Recommendations: React.FC = () => {
 
   useEffect(() => {
     axios.get('/api/recommendations?userId=1').then(res => {
+      console.log(res.data)
       setItems(res.data.items || [])
     }).finally(() => setLoading(false))
   }, [])

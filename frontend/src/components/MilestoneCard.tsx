@@ -11,7 +11,10 @@ const MilestoneCard: React.FC = () => {
   const [milestone, setMilestone] = useState<MilestoneType | null>(null)
 
   useEffect(() => {
-    axios.get('/api/user/1/milestones').then(res => setMilestone(res.data.current))
+    axios.get('/api/user/1/milestones').then(res => {
+      console.log(res.data)
+      setMilestone(res.data.current)
+    })
   }, [])
 
   return (

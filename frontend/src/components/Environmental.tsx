@@ -13,6 +13,7 @@ const Environmental: React.FC = () => {
 
   useEffect(() => {
     axios.get('/api/environmental?location=jaipur').then(res => {
+      console.log("Test Environmental Component Data" + res.data)
       setEnv(res.data)
     }).finally(() => setLoading(false))
   }, [])
