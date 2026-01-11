@@ -21,3 +21,20 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 # Database connection string
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+# Flask
+FLASK_ENV = os.getenv('FLASK_ENV', 'development')
+DEBUG = FLASK_ENV == 'development'
+# CORS
+CORS_ORIGINS = os.getenv('CORS_ORIGINS', '*')
+
+#PEXEL
+PEXELS_API_KEY = os.getenv('PEXELS_API_KEY', 'DEMO')
+
+# Caching
+CACHE_TYPE = 'simple'
+CACHE_TIMEOUT = 3600
+
+# Pagination
+DEFAULT_PAGE_SIZE = 10
+MAX_PAGE_SIZE = 100

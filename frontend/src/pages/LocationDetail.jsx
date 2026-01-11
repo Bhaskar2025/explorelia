@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import MapComponent from '../components/MapComponent';
 
 const LocationDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [location, setLocation] = useState(null);
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [envData, setEnvData] = useState(null);
+  const [envLoading, setEnvLoading] = useState(true);
+  const [envError, setEnvError] = useState(null);
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -14,7 +19,7 @@ const LocationDetail = () => {
         const response = await fetch(`/api/locations/${id}`);
         if (!response.ok) throw new Error('Location not found');
         const data = await response.json();
-        setLocation(data);
+        setData(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -25,6 +30,22 @@ const LocationDetail = () => {
     fetchLocation();
   }, [id]);
 
+  useEffect(() => {
+    if (data?.location?.city_name) {
+      const fetchEnvironmentalData = async () => {
+        try {
+          const response = await axios.get(`/api/environmental?location=${data.location.city_name}`);
+          setEnvData(response.data);
+        } catch (err) {
+          setEnvError(err.message);
+        } finally {
+          setEnvLoading(false);
+        }
+      };
+      fetchEnvironmentalData();
+    }
+  }, [data?.location?.city_name]);
+
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark">
@@ -33,7 +54,7 @@ const LocationDetail = () => {
             <div className="flex items-center justify-between h-20">
               <a className="flex items-center gap-2 text-[#10221b] dark:text-background-light" href="/">
                 <span className="material-symbols-outlined text-primary text-3xl">explore</span>
-                <span className="text-2xl font-bold">NomadNav</span>
+                <span className="text-2xl font-bold">Explorelia</span>
               </a>
             </div>
           </div>
@@ -53,7 +74,7 @@ const LocationDetail = () => {
             <div className="flex items-center justify-between h-20">
               <a className="flex items-center gap-2 text-[#10221b] dark:text-background-light" href="/">
                 <span className="material-symbols-outlined text-primary text-3xl">explore</span>
-                <span className="text-2xl font-bold">NomadNav</span>
+                <span className="text-2xl font-bold">Explorelia</span>
               </a>
             </div>
           </div>
@@ -73,7 +94,7 @@ const LocationDetail = () => {
     );
   }
 
-  if (!location) return null;
+  if (!data) return null;
 
   return (
     <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark font-display text-[#10221b] dark:text-background-light">
@@ -84,7 +105,7 @@ const LocationDetail = () => {
             <div className="flex items-center gap-8">
               <a className="flex items-center gap-2 text-[#10221b] dark:text-background-light" href="/">
                 <span className="material-symbols-outlined text-primary text-3xl">explore</span>
-                <span className="text-2xl font-bold">NomadNav</span>
+                <span className="text-2xl font-bold">Explorelia</span>
               </a>
               <nav className="hidden md:flex items-center gap-6">
                 <a className="text-sm font-medium hover:text-primary transition-colors" href="/">Explore</a>
@@ -109,10 +130,10 @@ const LocationDetail = () => {
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Location Title */}
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">{location.name}</h1>
-          <p className="text-lg text-[#10221b]/80 dark:text-background-light/80 mb-8">
-            {location.description || `Discover the vibrant charm of ${location.name}, where culture and heritage come alive.`}
-          </p>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Discover {data.location.name}</h1>
+            <p className="text-lg text-[#10221b]/80 dark:text-background-light/80 mb-8">
+              {data.location.description || `Discover the vibrant charm of ${data.location.name}, where culture and heritage come alive.`}
+            </p>
 
           {/* Tabs */}
           <div className="border-b border-primary/20 dark:border-primary/30 mb-8">
@@ -129,18 +150,61 @@ const LocationDetail = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80 mb-2">Rating</p>
-                <p className="text-3xl font-bold text-primary">{location.average_rating?.toFixed(1) || 'N/A'}</p>
-                <p className="text-sm text-[#10221b]/60 dark:text-background-light/60 mt-2">({location.total_reviews || 0} reviews)</p>
+                <p className="text-3xl font-bold text-primary">{data.location.average_rating?.toFixed(1) || 'N/A'}</p>
+                <p className="text-sm text-[#10221b]/60 dark:text-background-light/60 mt-2">({data.location.total_reviews || 0} reviews)</p>
               </div>
               <div className="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80 mb-2">Type</p>
-                <p className="text-3xl font-bold text-primary">{location.type || 'N/A'}</p>
+                <p className="text-3xl font-bold text-primary">{data.location.type || 'N/A'}</p>
               </div>
               <div className="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80 mb-2">Popularity Score</p>
-                <p className="text-3xl font-bold text-primary">{location.popularity_score || 0}/100</p>
+                <p className="text-3xl font-bold text-primary">{data.location.popularity_score || 0}/100</p>
               </div>
             </div>
+          </section>
+
+          <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3"><span class="material-symbols-outlined text-primary">partly_cloudy_day</span>Weather & AQI</h2>
+            {envLoading ? (
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">Temperature</p>
+                    <p class="text-3xl font-bold">—</p>
+                  </div>
+                  <span class="material-symbols-outlined text-4xl text-primary">thermostat</span>
+                </div>
+                <div class="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">Air Quality Index (AQI)</p>
+                    <p class="text-3xl font-bold">—</p>
+                  </div>
+                  <span class="material-symbols-outlined text-4xl text-primary">air</span>
+                </div>
+              </div>
+            ) : envError ? (
+              <div class="text-center py-8">
+                <p class="text-red-600">Error loading environmental data: {envError}</p>
+              </div>
+            ) : (
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">Temperature</p>
+                    <p class="text-3xl font-bold">{envData?.tempC}°C</p>
+                  </div>
+                  <span class="material-symbols-outlined text-4xl text-primary">thermostat</span>
+                </div>
+                <div class="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">Air Quality Index (AQI)</p>
+                    <p class="text-3xl font-bold">{envData?.aqi}</p>
+                  </div>
+                  <span class="material-symbols-outlined text-4xl text-primary">air</span>
+                </div>
+              </div>
+            )}
           </section>
 
           {/* Location Details */}
@@ -152,78 +216,67 @@ const LocationDetail = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">City</p>
-                <p className="text-lg font-bold mt-2">{location.city_name || 'N/A'}</p>
+                <p className="text-lg font-bold mt-2">{data.location.city_name || 'N/A'}</p>
               </div>
               <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">State</p>
-                <p className="text-lg font-bold mt-2">{location.state_name || 'N/A'}</p>
+                <p className="text-lg font-bold mt-2">{data.location.state_name || 'N/A'}</p>
               </div>
               <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">Country</p>
-                <p className="text-lg font-bold mt-2">{location.country_name || 'N/A'}</p>
+                <p className="text-lg font-bold mt-2">{data.location.country_name || 'N/A'}</p>
               </div>
               <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-lg">
                 <p className="text-sm font-medium text-[#10221b]/80 dark:text-background-light/80">ID</p>
-                <p className="text-lg font-bold mt-2">{location.id}</p>
+                <p className="text-lg font-bold mt-2">{data.location.id}</p>
               </div>
             </div>
           </section>
 
           {/* Highlights Section */}
           <section id="highlights" className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">star</span>
-              {location.name} Highlights
+              {data.location.name} Highlights
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* Main location image */}
               <div className="group">
                 <div className="overflow-hidden rounded-lg mb-2">
-                  <div 
-                    className="w-full h-40 bg-cover bg-center rounded-lg transform group-hover:scale-105 transition-transform duration-300" 
-                    style={{ backgroundImage: `url('${location.image_url}')` }} 
+                  <div
+                    className="w-full h-40 bg-cover bg-center rounded-lg transform group-hover:scale-105 transition-transform duration-300"
+                    style={{ backgroundImage: `url('${data.location.image_url}')` }}
                   />
                 </div>
-                <h3 className="text-base font-semibold">{location.name} Main Attraction</h3>
+                <h3 className="text-base font-semibold">{data.location.name} Main Attraction</h3>
               </div>
-              <div className="group opacity-50">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div className="w-full h-40 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-2xl">add_a_photo</span>
+              {/* Related attractions */}
+              {data.related_attractions?.map((attr) => (
+                <Link key={attr.id} to={`/location/${attr.id}`} className="group">
+                  <div className="overflow-hidden rounded-lg mb-2">
+                    <div
+                      className="w-full h-40 bg-cover bg-center rounded-lg transform group-hover:scale-105 transition-transform duration-300"
+                      style={{ backgroundImage: `url('${attr.image_url}')` }}
+                    />
                   </div>
-                </div>
-                <h3 className="text-base font-semibold text-[#10221b]/60 dark:text-background-light/60">More images coming soon</h3>
-              </div>
-              <div className="group opacity-50">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div className="w-full h-40 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-2xl">add_a_photo</span>
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-[#10221b]/60 dark:text-background-light/60">More images coming soon</h3>
-              </div>
-              <div className="group opacity-50">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div className="w-full h-40 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-2xl">add_a_photo</span>
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-[#10221b]/60 dark:text-background-light/60">More images coming soon</h3>
-              </div>
+                  <h3 className="text-base font-semibold">{attr.name}</h3>
+                </Link>
+              ))}
             </div>
           </section>
 
           {/* Map Section */}
           <section id="map" className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">map</span>
-              {location.name} Map
+              {data.location.name} Map
             </h2>
-            <div className="w-full aspect-video rounded-xl bg-cover bg-center bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-              <div className="text-center">
-                <span className="material-symbols-outlined text-5xl text-primary mb-2 block">place</span>
-                <p className="text-[#10221b]/80 dark:text-background-light/80">Latitude: {location.latitude?.toFixed(4)}</p>
-                <p className="text-[#10221b]/80 dark:text-background-light/80">Longitude: {location.longitude?.toFixed(4)}</p>
-              </div>
+            <div className="w-full aspect-video">
+              <MapComponent 
+                latitude={data.location.latitude}
+                longitude={data.location.longitude}
+                locationName={data.location.name}
+              />
             </div>
           </section>
 
@@ -233,54 +286,11 @@ const LocationDetail = () => {
               <span className="material-symbols-outlined text-primary">directions_bus</span>
               How to Reach
             </h2>
-            <p className="text-base leading-relaxed text-[#10221b]/80 dark:text-background-light/80">
-              {location.name} is well-connected by air, rail, and road. Major transportation hubs provide easy access. 
+              <p className="text-base leading-relaxed text-[#10221b]/80 dark:text-background-light/80">
+              {data.location.name} is well-connected by air, rail, and road. Major transportation hubs provide easy access. 
               Plan your journey in advance and use local transportation options to explore the area. Visit nearby landmarks 
               and attractions for a complete experience of this beautiful destination.
             </p>
-          </section>
-
-          {/* Things to Do Section */}
-          <section id="things" className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <span className="material-symbols-outlined text-primary">attractions</span>
-              Things to Do
-            </h2>
-            <div className="flex overflow-x-auto space-x-4 pb-4 -mx-4 px-4">
-              <div className="flex-shrink-0 w-64 group">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div 
-                    className="w-full h-40 bg-cover bg-center rounded-lg transform group-hover:scale-105 transition-transform duration-300" 
-                    style={{ backgroundImage: `url('${location.image_url}')` }} 
-                  />
-                </div>
-                <h3 className="text-base font-semibold">Explore {location.name}</h3>
-              </div>
-              <div className="flex-shrink-0 w-64 group opacity-50">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div className="w-full h-40 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-2xl">add_a_photo</span>
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-[#10221b]/60 dark:text-background-light/60">More attractions coming</h3>
-              </div>
-              <div className="flex-shrink-0 w-64 group opacity-50">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div className="w-full h-40 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-2xl">add_a_photo</span>
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-[#10221b]/60 dark:text-background-light/60">More attractions coming</h3>
-              </div>
-              <div className="flex-shrink-0 w-64 group opacity-50">
-                <div className="overflow-hidden rounded-lg mb-2">
-                  <div className="w-full h-40 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-2xl">add_a_photo</span>
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-[#10221b]/60 dark:text-background-light/60">More attractions coming</h3>
-              </div>
-            </div>
           </section>
 
           {/* Action Buttons */}

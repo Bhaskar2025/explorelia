@@ -11,6 +11,9 @@ const Hero = () => {
   const searchInputRef = useRef(null);
   const resultsContainerRef = useRef(null);
 
+  // ✅ HARDCODED PEXELS VIDEO URLS (High quality India travel videos)
+  const HERO_IMAGE = 'https://images.pexels.com/photos/1588032/pexels-photo-1588032.jpeg?auto=compress&cs=tinysrgb&w=1600';
+
   // API Call to backend
   const fetchLocationSuggestions = async (query) => {
     if (query.length < 3) {
@@ -124,9 +127,14 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-[60vh] flex items-center justify-center text-white">
-      <video autoPlay className="absolute inset-0 w-full h-full object-cover" loop muted playsInline>
-        <source src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs1AeK79zbrPan4MG7GCdxSbRFclAzPPTcaIA6ioHCEmK5L0mh-kQqePrsKsppRxvLG7n5IyPY0BKDqPZ-IYd-ThejK8ZBVvqJK40f2N_rOVyc64TDa7SJHXzlYdx5GFhprA0P6SrOK1Phfo_JAiaaLeFKYUIoY8QNB0UCB_7xP4xtLzNYquGtsa9UfWhMljGD24f7sUGC7zeT30JzJ27gD71MNp7gndwzTKvvHy4JmoEbMj5Gr9oYp8ir0peTaiurMFhnCLQf5yg" type="video/mp4"/>
-      </video>
+      
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('${HERO_IMAGE}')`,
+        }}
+      ></div>
+
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="relative z-10 flex flex-col items-center gap-6 text-center px-4">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">Explore the Soul of India</h1>
