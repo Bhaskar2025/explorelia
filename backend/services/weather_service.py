@@ -1,5 +1,5 @@
 import requests
-from .config import OPEN_METEO_BASE_URL
+from config import OPEN_METEO_BASE_URL
 
 def fetch_weather(lat, lon) -> dict:
     """

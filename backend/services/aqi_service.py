@@ -1,5 +1,5 @@
 import requests
-from .config import WAQI_TOKEN, WAQI_BASE_URL
+from config import WAQI_TOKEN, WAQI_BASE_URL
 
 def fetch_aqi(city: str) -> dict:
     """
