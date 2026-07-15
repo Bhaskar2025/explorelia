@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* stylelint-disable at-rule-no-unknown */
+@source "./index.html";
+@source "./src/**/*.{js,jsx,ts,tsx}";
+/* stylelint-enable at-rule-no-unknown */
+
+/* Tailwind v4 theme tokens */
+@theme {
+  --color-primary: #10b774;
+  --color-background-light: #f6f8f7;
+  --color-background-dark: #10221b;
+  --color-surface-light: #f5e9dc;
+  --color-surface-dark: #2d2a3d;
+  --color-text-light: #5d4037;
+  --color-text-dark: #f8f6ff;
+  --color-muted-light: #8d6e63;
+  --color-muted-dark: #b0a8cc;
+  --color-card-light: #ffffff;
+  --color-card-dark: #252236;
+  --color-border-light: #d7ccc8;
+  --color-border-dark: #5c567a;
+}
+
+/* Theme variables are now handled by Tailwind CSS configuration */
+/* Only keeping essential global styles */
+
+* { 
+  box-sizing: border-box; 
+}
+
+html, body, #root { 
+  height: 100%; 
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  /* We'll handle this with Tailwind's responsive utilities */
+}
